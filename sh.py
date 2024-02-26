@@ -12,7 +12,7 @@ def if_sudo():
     except subprocess.CalledProcessError:
         return False
 class Request:
-    def __init__(self, req, user, *flags):
+    def __init__(self, req, user, flags):
         self.request = req
         self.user = user
         self.flag = flags
@@ -35,7 +35,8 @@ class Request:
             result = 0
         elif strip[0] == "usedb":
             if os.path.isdir("/usr/local/PyDB/db/{}".format(strip[1])):
-                self.flag = strip[1]
+                self.flag = str(strip[1])
+                print(self.flag)
                 print("Database changed to {}".format(strip[1]))
                 result = 0
             else:

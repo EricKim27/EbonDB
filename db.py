@@ -63,9 +63,9 @@ class DB:
     def __init__(self, name):
         self.name = name
     def mkdb(self):
-        dbdir = "/usr/local/PyDB/db/{}".format(self.name)
+        dbdir = "/usr/local/PyDB/db/{}\n".format(self.name)
         os.mkdir(dbdir)
-        tableinfo = "/usr/local/PyDB/db/{}/tableinfo".format(self.name)
+        tableinfo = "/usr/local/PyDB/db/{}/tableinfo\n".format(self.name)
         with open(tableinfo, "w") as f:
             f.write("PyDB:{0}".format(self.name))
 class Table:
@@ -73,12 +73,12 @@ class Table:
         self.name = name
         self.dbname = dbname
     def mktable(self):
-        with open("/usr/local/PyDB/db/{0}/tableinfo".format(self.dbname[0]), "a") as f:
+        with open("/usr/local/PyDB/db/{0}/tableinfo".format(self.dbname), "a") as f:
             f.write("{0}\n".format(self.name))
-        tabledir = "/usr/local/PyDB/db/{0}/{1}/".format(self.dbname[0], self.name)
+        tabledir = "/usr/local/PyDB/db/{0}/{1}/".format(self.dbname, self.name)
         os.mkdir(tabledir)
-        tabledata = "/usr/local/PyDB/db/{0}/{1}/data".format(self.dbname[0], self.name)
-        tableclass = "/usr/local/PyDB/db/{0}/{1}/class".format(self.dbname[0], self.name)
+        tabledata = "/usr/local/PyDB/db/{0}/{1}/data".format(self.dbname, self.name)
+        tableclass = "/usr/local/PyDB/db/{0}/{1}/class".format(self.dbname, self.name)
         with open(tabledata, "w") as f:
             f.write("PyDB:{0}\n".format(self.name))
         with open(tableclass, "w") as f:
@@ -90,11 +90,11 @@ class Class:
         self.dbname = dbname
         self.tablename = tablename
     def mkclass(self):
-        classpath = "/usr/local/PyDB/db/{0}/{1}/class".format(self.dbname[0], self.tablename[0])
+        classpath = "/usr/local/PyDB/db/{0}/{1}/class".format(self.dbname, self.tablename)
         with open(classpath, "a") as f:
             f.write("{0}:{1}\n".format(self.name, self.type))
     def writeclass(self):
-        classpath = "/usr/local/PyDB/db/{0}/{1}/class".format(self.dbname[0], self.name[0])
+        classpath = "/usr/local/PyDB/db/{0}/{1}/class".format(self.dbname, self.name)
         with open(classpath, "w") as f:
             f.write("{0}:{1}\n".format(self.name, self.type))
     def checkclass(self):
