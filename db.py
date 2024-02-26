@@ -100,9 +100,8 @@ class Class:
     def checkclass(self):
         classpath = "/usr/local/PyDB/db/{0}/{1}/class".format(self.name)
         with open(classpath, "r") as f:
-            data = f.read()
-            next(data)
-            data.readlines()
+            next(f)
+            data = f.readlines()
             for line in data:
                 if line.split(":")[0] == self.name:
                     if line.split(":")[1] == self.type:
