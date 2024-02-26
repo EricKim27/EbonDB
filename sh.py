@@ -29,6 +29,22 @@ class Request:
                     print(" {}".format(line))
                 print("-----------------")
                 result = 0
+            elif strip[1] == "tables":
+                if self.flag == ' ':
+                    print("database not selected")
+                    result = 1
+                else:
+                    table_info = "/usr/local/PyDB/db/{}/tableinfo".format(self.flag)
+                    print("-----------------")
+                    print("Tables")
+                    print("-----------------")
+                    with open(table_info, "r") as f:
+                        next(f)
+                        data = f.readlines()
+                        for line in data:
+                            print(line)
+                        print("-----------------")
+                        result = 0
         elif strip[0] == "mkdb":
             database = db.DB(strip[1])
             database.mkdb()
