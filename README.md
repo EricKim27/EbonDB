@@ -1,4 +1,4 @@
- ## PyDB - a DBMS made from python
+## PyDB - a DBMS made from python
  PyDB is a DBMS made using python.
 
 Now, since this is just some BS I made to learn more about OOP, please don't expect it to work like MySQL, MariaDB, MongoDB, etc. I really have no idea about databases. I'm just making it based on my understandings of DB after fiddling around with MariaDB. Heck, I don't even know all the sql statements.
@@ -8,10 +8,11 @@ Currently, it is not ready for use. It currently can do:
  - creating tables
 
 I'm planning on making this work like a server. Currently, in order to use the prompt, run:
-> python sh.py
-
+```
+python sh.py
+```
 Though nothing is ready, so there's nothing to do with it.
- ## How to use
+## How to use
 (most of these are yet to be implemented)
  - commands
     * show (things)
