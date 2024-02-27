@@ -42,7 +42,7 @@ class Request:
                         next(f)
                         data = f.readlines()
                         for line in data:
-                            print(line)
+                            print(line.strip('\n'))
                         print("-----------------")
                         result = 0
         elif strip[0] == "mkdb":
