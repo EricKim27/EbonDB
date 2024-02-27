@@ -87,10 +87,11 @@ else:
         uid = input("DB login: ")
         upw = getpass("Password: ")
         ret = db.Auth.checkpw(uid, upw)
+        res = 0
         if ret == 0:
             print("Authentication successful.")
             while True:
-                stin = input("(" + uid + ")>")
+                stin = input("(" + uid + ")[" + str(res) + "]>")
                 if stin == "exit":
                     print("bye")
                     exit()
