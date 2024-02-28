@@ -1,7 +1,5 @@
 import request
 import db
-import fcntl
-import os
 import subprocess
 import sys
 from getpass4 import getpass
@@ -54,5 +52,5 @@ while True:
                 elif ret == 2:
                     continue
     except Exception as e:
-        print("error occured: {0} \ncontact developer at github".format(e))
+        print("error occured: \n{0} \ncontact developer at github.".format(e))
         continue

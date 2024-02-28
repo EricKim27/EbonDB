@@ -1,16 +1,14 @@
-import sys
 import os
 
 class Data:
-    def __init__(self, typ, cls, index, value):
+    def __init__(self, typ, cls, value):
         self.typ = typ
         self.cls = cls
-        self.index = index
         self.value = value
     def writedata(self, dbname, tablename):
-        datafile = "/usr/local/PyDB/db/{dbname}/{tablename}/data"
+        datafile = "/usr/local/PyDB/db/{0}/{1}/data".format(dbname, tablename)
         with open(datafile, "a") as f:
-            f.write("{0}:{1}:{2}:{3}\n".format(self.typ, self.cls, self.index, self.value))
+            f.write("{0}:{1}:{2}\n".format(self.typ, self.cls, self.value))
     def readdata(fd):
         f = open(fd, "r", encoding='utf-8')
         data = f.read()
@@ -99,18 +97,15 @@ class Class:
         classpath = "/usr/local/PyDB/db/{0}/{1}/class".format(self.dbname, self.tablename)
         with open(classpath, "a") as f:
             f.write("{0}:{1}\n".format(self.name, self.type))
-    def checkclass(self):
-        classpath = "/usr/local/PyDB/db/{0}/{1}/class".format(self.name)
-        with open(classpath, "r") as f:
-            next(f)
-            data = f.readlines()
-            for line in data:
-                if line.split(":")[0] == self.name:
-                    if line.split(":")[1] == self.type:
-                        return 0
-                    print("Class type mismatch")
-                    return 1
-            print("Class not found")
-            return 1
+def checkclass(dbname, tablename, classname):
+    classpath = "/usr/local/PyDB/db/{0}/{1}/class".format(dbname, tablename)
+    with open(classpath, "r") as f:
+        next(f)
+        data = f.readlines()
+        for line in data:
+            if line.split(":")[0] == classname:
+                return line.split(":")[1].strip('\n')
+        print("Class not found")
+        return "error"
 
         

@@ -1,5 +1,6 @@
 import db
 import os
+from tabulate import tabulate
 
 class Request:
     def __init__(self, req, user, flags):
@@ -56,7 +57,6 @@ class Request:
         elif strip[0] == "usedb":
             if os.path.isdir("/usr/local/PyDB/db/{}".format(strip[1])):
                 self.flag = str(strip[1])
-                print(self.flag)
                 print("Database changed to {}".format(strip[1]))
                 result = 0
             else:
@@ -70,6 +70,22 @@ class Request:
                 table = db.Table(strip[1], self.flag)
                 table.mktable()
                 result = 0
+        elif strip[0] == "insert":
+            if self.flag == ' ':
+                print("database not selected.")
+                result = 1
+            else:
+                columninfo = strip[2].strip('{').strip('}').split(',')
+                datainfo = strip[3].strip('{').strip('}').split(',')
+                for i in range(len(columninfo)):
+                    type = db.checkclass(self.flag, strip[1], columninfo[i])
+                    if type == "error":
+                        print('column {} was not found'.format(columninfo[i]))
+                        result = 1
+                    else:
+                        data_for_write = db.Data(type, columninfo[i], datainfo[i])
+                        data_for_write.writedata(self.flag, strip[1])
+                        result = 0
         else:
             print("Command not found")
             result = 1

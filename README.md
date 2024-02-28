@@ -24,4 +24,4 @@ Though nothing is ready, so there's nothing to do with it.
     * use (dbname) - use db
     * get (data) (tablename) - gets data from table (data section can be *, column name. if it's using columns, it shoud be like get {column1, column2} exdb)
       * get (data) (tablename) where (buncha shit) - like the one from sql.
-    * insert (table) (column, column) (data1, data2)
+    * insert (table) {column,column} {data1,data2}
