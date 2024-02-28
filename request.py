@@ -86,6 +86,28 @@ class Request:
                         data_for_write = db.Data(type, columninfo[i], datainfo[i])
                         data_for_write.writedata(self.flag, strip[1])
                         result = 0
+        elif strip[0] == "get":
+            if self.flag == ' ':
+                print("database not selected.")
+                result = 1
+            else:
+                columndata = strip[1].strip('{').strip('}').split(',')
+                datapath = "/usr/local/PyDB/db/{0}/{1}/data".format(self.flag, strip[2])
+                with open(datapath, "r") as f:
+                    next(f)
+                    data = f.readlines()
+                    primelist = []
+                    for i in range(len(columndata)):
+                        primelist.append([])
+                    for line in data:
+                        value = line.split(':')
+                        for i in range(len(columndata)):
+                            if columndata[i] == value[1]:
+                                primelist[i].append(value[2].strip("\n"))
+                primelist_aligned = list(zip(*primelist))
+                table = tabulate(primelist_aligned, headers=columndata, tablefmt="grid")
+                print(table)
+                result = 0
         else:
             print("Command not found")
             result = 1
