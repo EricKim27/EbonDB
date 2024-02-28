@@ -17,9 +17,10 @@ Though nothing is ready, so there's nothing to do with it.
 (most of these are yet to be implemented)
  - commands
     * show (things)
-    * makedb (dbname) - makes a db
+    * mkdb (dbname) - makes a db
     * rmdb (dbname) - deletes a db
     * mktable (tablename) - makes a table in the current database with the corresponding name.
+    * mkcolumn (tablename) (columnname) - makes a column in a table.
     * use (dbname) - use db
     * get (data) (tablename) - gets data from table (data section can be *, column name. if it's using columns, it shoud be like get {column1, column2} exdb)
       * get (data) (tablename) where (buncha shit) - like the one from sql.
