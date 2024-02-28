@@ -20,7 +20,7 @@ Though nothing is ready, so there's nothing to do with it.
     * mkdb (dbname) - makes a db
     * rmdb (dbname) - deletes a db
     * mktable (tablename) - makes a table in the current database with the corresponding name.
-    * mkcolumn (tablename) {(column name):(type),(another column name)} - makes a column in a table.
+    * mkcolumn (tablename) {(column name):(type),(another column name):(type)} - makes a column in a table.
     * use (dbname) - use db
     * get (data) (tablename) - gets data from table (data section can be *, column name. if it's using columns, it shoud be like get {column1, column2} exdb)
       * get (data) (tablename) where (buncha shit) - like the one from sql.
