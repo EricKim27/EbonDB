@@ -96,7 +96,7 @@ class Class:
         with open(classpath, "a") as f:
             f.write("{0}:{1}\n".format(self.name, self.type))
     def writeclass(self):
-        classpath = "/usr/local/PyDB/db/{0}/{1}/class".format(self.dbname, self.name)
+        classpath = "/usr/local/PyDB/db/{0}/{1}/class".format(self.dbname, self.tablename)
         with open(classpath, "w") as f:
             f.write("{0}:{1}\n".format(self.name, self.type))
     def checkclass(self):

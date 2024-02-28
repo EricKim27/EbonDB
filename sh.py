@@ -20,6 +20,7 @@ class Request:
         return self.request.split(' ')
     def commandinterpret(self):
         strip = self.stripcmd()
+        result = 200
         if strip[0] == "show":
             if strip[1] == "databases":
                 print("-----------------")
@@ -54,12 +55,14 @@ class Request:
         elif strip[0] == "mkcolumn":
             if self.flag == ' ':
                 print('database not selected')
+                result = 1
             else:
                 classdata = strip[2].strip('{').strip('}').split(',')
-                for i in len(classdata):
-                    towrite = classdata[i].split(',')
+                for i in range(len(classdata)):
+                    towrite = classdata[i].split(':')
                     writedata = db.Class(towrite[0], self.flag, strip[1], towrite[1])
                     writedata.writeclass()
+                    result = 0
         elif strip[0] == "usedb":
             if os.path.isdir("/usr/local/PyDB/db/{}".format(strip[1])):
                 self.flag = str(strip[1])
@@ -80,6 +83,8 @@ class Request:
         else:
             print("Command not found")
             result = 1
+        if result == 200:
+            print("error in code. contact developer at github.")
         return result
 if len(sys.argv) >= 3:
     if sys.argv[1] == "mkuser":
