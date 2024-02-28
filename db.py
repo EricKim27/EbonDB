@@ -63,6 +63,8 @@ class DB:
     def __init__(self, name):
         self.name = name
     def mkdb(self):
+        with open("/usr/local/PyDB/db/dbinfo", "a+") as f:
+            f.write("{0}\n".format(self.name))
         dbdir = "/usr/local/PyDB/db/{}\n".format(self.name)
         os.mkdir(dbdir)
         tableinfo = "/usr/local/PyDB/db/{}/tableinfo\n".format(self.name)

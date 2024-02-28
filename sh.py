@@ -25,8 +25,10 @@ class Request:
                 print("-----------------")
                 print(" Databases       ")
                 print("-----------------")
-                for line in os.listdir("/usr/local/PyDB/db"):
-                    print(" {}".format(line))
+                with open("/usr/local/PyDB/db/dbinfo", "r") as f:
+                    data = f.readlines()
+                    for line in data:
+                        print(" {}".format(line).strip("\n"))
                 print("-----------------")
                 result = 0
             elif strip[1] == "tables":
