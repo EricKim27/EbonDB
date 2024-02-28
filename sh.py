@@ -39,7 +39,7 @@ else:
                     exit()
                 if stin == "err":
                     execfail = 1
-                req = Request(stin, uid, flags)
+                req = request.Request(stin, uid, flags)
                 res = req.commandinterpret()
                 flags = req.flag
                 if res == 0:
