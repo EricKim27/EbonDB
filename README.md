@@ -9,7 +9,9 @@ Currently, it is not ready for use. It currently can do:
  - creating columns
  - inserting data to a column
  - printing data in the form of a table
+
 The contents of this repository has to go under /usr/local/PyDB.
+
 I'm planning on making this work like a server. Currently, in order to use the prompt, run:
 ```
 python sh.py
