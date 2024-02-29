@@ -43,6 +43,19 @@ class Request:
             database = db.DB(strip[1])
             database.mkdb()
             result = 0
+        elif strip[0] == "rmdb":
+            doublecheck = input("Are you sure you want to delete the Database: {0}?(y/n)".format(strip[1]))
+            if doublecheck == "y":
+                db_to_remove = db.DB(strip[1])
+                db_to_remove.rmdb()
+                print("Database removed.")
+                result = 0
+            elif doublecheck == "n":
+                print("aborted")
+                result = 0
+            else:
+                print("wrong syntax!")
+                result = 1
         elif strip[0] == "mkcolumn":
             if self.flag == ' ':
                 print('database not selected')

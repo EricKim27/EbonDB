@@ -1,4 +1,5 @@
 import os
+import shutil
 
 class Data:
     def __init__(self, typ, cls, value):
@@ -68,6 +69,14 @@ class DB:
         tableinfo = "/usr/local/PyDB/db/{}/tableinfo".format(self.name)
         with open(tableinfo, "w") as f:
             f.write("PyDB:{0}\n".format(self.name))
+    def rmdb(self):
+        with open("/usr/local/PyDB/db/dbinfo", "r") as f:
+            data = f.readlines()
+        with open("/usr/local/PyDB/db/dbinfo", "w") as f:
+            for line in data:
+                if line.strip('\n') != self.name:
+                    f.write(line)
+        shutil.rmtree('/usr/local/PyDB/db/{0}'.format(self.name))
 class Table:
     def __init__(self, name, dbname):
         self.name = name

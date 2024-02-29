@@ -5,6 +5,7 @@ Now, since this is just some BS I made to learn more about OOP, please don't exp
 
 Currently, it is not ready for use. It currently can do:
  - creating database
+ - removing database
  - creating tables
  - creating columns
  - inserting data to a column
