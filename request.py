@@ -91,7 +91,15 @@ class Request:
                 print("database not selected.")
                 result = 1
             else:
-                columndata = strip[1].strip('{').strip('}').split(',')
+                if strip[1] == "*":
+                    with open("/usr/local/PyDB/db/{0}/{1}/class".format(self.flag, strip[2]), "r") as f:
+                        next(f)
+                        columnd = f.readlines()
+                        columndata = []
+                        for line in columnd:
+                            columndata.append(line.split(':')[0])
+                else:
+                    columndata = strip[1].strip('{').strip('}').split(',')
                 datapath = "/usr/local/PyDB/db/{0}/{1}/data".format(self.flag, strip[2])
                 with open(datapath, "r") as f:
                     next(f)
