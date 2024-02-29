@@ -13,32 +13,32 @@ class Request:
         strip = self.stripcmd()
         result = 200
         if strip[0] == "show":
+            tmplist = []
             if strip[1] == "databases":
-                print("-----------------")
-                print(" Databases       ")
-                print("-----------------")
                 with open("/usr/local/PyDB/db/dbinfo", "r") as f:
                     data = f.readlines()
                     for line in data:
-                        print(" {}".format(line).strip("\n"))
-                print("-----------------")
+                        tmplist.append([line.strip("\n")])
+                        header = ['Databases']
+                table = tabulate(tmplist, headers=header, tablefmt="grid")
+                print(table)
                 result = 0
             elif strip[1] == "tables":
                 if self.flag == ' ':
                     print("database not selected")
                     result = 1
                 else:
+                    primelist = []
+                    header = ['Tables']
                     table_info = "/usr/local/PyDB/db/{}/tableinfo".format(self.flag)
-                    print("-----------------")
-                    print("Tables")
-                    print("-----------------")
                     with open(table_info, "r") as f:
                         next(f)
                         data = f.readlines()
                         for line in data:
-                            print(line.strip('\n'))
-                        print("-----------------")
-                        result = 0
+                            primelist.append([line.strip('\n')])
+                    table = tabulate(primelist, headers=header, tablefmt="grid")
+                    print(table)
+                    result = 0
         elif strip[0] == "mkdb":
             database = db.DB(strip[1])
             database.mkdb()
