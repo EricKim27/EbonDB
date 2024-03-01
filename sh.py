@@ -52,5 +52,6 @@ while True:
                 elif ret == 2:
                     continue
     except Exception as e:
-        print("error occured: \n{0} \ncontact developer at github.".format(e))
-        continue
+        print("error occured: \n")
+        print(e)
+        print("contact developer at github. \n")

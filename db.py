@@ -81,7 +81,7 @@ class Table:
         self.name = name
         self.dbname = dbname
     def mktable(self):
-        with open("{0}/db/{1}/tableinfo".format(self.dbname), "a") as f:
+        with open("{0}/db/{1}/tableinfo".format(rootpath, self.dbname), "a") as f:
             f.write("{0}\n".format(self.name))
         tabledir = "{0}/db/{1}/{2}/".format(rootpath, self.dbname, self.name)
         os.mkdir(tabledir)
@@ -91,6 +91,15 @@ class Table:
             f.write("PyDB:{0}\n".format(self.name))
         with open(tableclass, "w") as f:
             f.write("PyDB_class:{0}\n".format(self.name))
+    def rmtable(self):
+        with open('{0}/db/{1}/tableinfo'.format(rootpath, self.dbname), 'r') as f:
+            next(f)
+            data = f.readlines()
+        with open("{0}/db/{1}/tableinfo".format(rootpath, self.dbname), "w") as f:
+            for line in data:
+                if line.split('\n') != self.name:
+                    f.write(line)
+        shutil.rmtree('{0}/db/{1}/{2}'.format(rootpath, self.dbname, self.name))
 class Class:
     def __init__(self, name, dbname, tablename, type):
         self.name = name

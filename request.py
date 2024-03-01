@@ -58,6 +58,16 @@ class Request:
             else:
                 print("wrong syntax!")
                 result = 1
+        elif strip[0] == "rmtable":
+            if self.flag == ' ':
+                print("database not selected")
+                result = 1
+            else:
+                doublecheck = input("Are you sure you want to delete table: {0}?(y/n)".format(strip[1]))
+                if doublecheck == "y":
+                    table_to_remove = db.Table(strip[1], self.flag)
+                    table_to_remove.rmtable()
+                    result = 0
         elif strip[0] == "mkcolumn":
             if self.flag == ' ':
                 print('database not selected')
