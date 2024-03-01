@@ -3,6 +3,7 @@ from db import rootpath
 import os
 from tabulate import tabulate
 
+#this class is for getting requests and returning results.
 class Request:
     def __init__(self, req, user, flags):
         self.request = req
@@ -100,6 +101,7 @@ class Request:
                         data_for_write = db.Data(type, columninfo[i], datainfo[i])
                         data_for_write.writedata(self.flag, strip[1])
                         result = 0
+        #the get function is used for getting data of columns in the table.
         elif strip[0] == "get":
             if self.flag == ' ':
                 print("database not selected.")
@@ -118,9 +120,15 @@ class Request:
                 with open(datapath, "r") as f:
                     next(f)
                     data = f.readlines()
+                    #primelist is for storing lists that contain each column's data.
                     primelist = []
+                    #below is for making lists according to the number of columns requested.
                     for i in range(len(columndata)):
                         primelist.append([])
+                    #the bottom function reads line by line, and checks which column does the data belong to.
+                    #process:
+                    #read line -> check if the data belongs on column (in order) -> finds it ->
+                    #goto next line -> repeat until end
                     for line in data:
                         value = line.split(':')
                         for i in range(len(columndata)):
