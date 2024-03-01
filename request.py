@@ -20,7 +20,7 @@ class Request:
                     for line in data:
                         tmplist.append([line.strip("\n")])
                         header = ['Databases']
-                table = tabulate(tmplist, headers=header, tablefmt="grid")
+                table = tabulate(tmplist, headers=header, tablefmt="fancy_grid")
                 print(table)
                 result = 0
             elif strip[1] == "tables":
@@ -36,7 +36,7 @@ class Request:
                         data = f.readlines()
                         for line in data:
                             primelist.append([line.strip('\n')])
-                    table = tabulate(primelist, headers=header, tablefmt="grid")
+                    table = tabulate(primelist, headers=header, tablefmt="fancy_grid")
                     print(table)
                     result = 0
         elif strip[0] == "mkdb":
@@ -124,9 +124,12 @@ class Request:
                         value = line.split(':')
                         for i in range(len(columndata)):
                             if columndata[i] == value[1]:
-                                primelist[i].append(value[2].strip("\n"))
+                                if line.split(':')[0] == "int":
+                                    primelist[i].append(int(value[2].strip("\n")))
+                                if line.split(':')[0] == "char":
+                                    primelist[i].append(str(value[2].strip("\n")))
                 primelist_aligned = list(zip(*primelist))
-                table = tabulate(primelist_aligned, headers=columndata, tablefmt="grid")
+                table = tabulate(primelist_aligned, headers=columndata, tablefmt="fancy_grid")
                 print(table)
                 result = 0
         else:
