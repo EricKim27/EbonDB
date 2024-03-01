@@ -10,11 +10,6 @@ class Data:
         datafile = "/usr/local/PyDB/db/{0}/{1}/data".format(dbname, tablename)
         with open(datafile, "a") as f:
             f.write("{0}:{1}:{2}\n".format(self.typ, self.cls, self.value))
-    def readdata(fd):
-        f = open(fd, "r", encoding='utf-8')
-        data = f.read()
-        f.close()
-        return data
 class User:
     def __init__(self, username, pw):
         self.password = pw
