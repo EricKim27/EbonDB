@@ -1,4 +1,5 @@
 import db
+from db import rootpath
 import os
 from tabulate import tabulate
 
@@ -13,14 +14,14 @@ class Request:
         strip = self.stripcmd()
         result = 200
         if strip[0] == "show":
-            tmplist = []
+            primelist = []
             if strip[1] == "databases":
-                with open("/usr/local/PyDB/db/dbinfo", "r") as f:
+                with open("{0}/db/dbinfo".format(rootpath), "r") as f:
                     data = f.readlines()
                     for line in data:
-                        tmplist.append([line.strip("\n")])
+                        primelist.append([line.strip("\n")])
                         header = ['Databases']
-                table = tabulate(tmplist, headers=header, tablefmt="fancy_grid")
+                table = tabulate(primelist, headers=header, tablefmt="fancy_grid")
                 print(table)
                 result = 0
             elif strip[1] == "tables":
@@ -30,7 +31,7 @@ class Request:
                 else:
                     primelist = []
                     header = ['Tables']
-                    table_info = "/usr/local/PyDB/db/{}/tableinfo".format(self.flag)
+                    table_info = "{0}/db/{1}/tableinfo".format(rootpath, self.flag)
                     with open(table_info, "r") as f:
                         next(f)
                         data = f.readlines()
@@ -68,7 +69,7 @@ class Request:
                     writedata.writeclass()
                     result = 0
         elif strip[0] == "usedb":
-            if os.path.isdir("/usr/local/PyDB/db/{}".format(strip[1])):
+            if os.path.isdir("{0}/db/{1}".format(rootpath, strip[1])):
                 self.flag = str(strip[1])
                 print("Database changed to {}".format(strip[1]))
                 result = 0
@@ -105,7 +106,7 @@ class Request:
                 result = 1
             else:
                 if strip[1] == "*":
-                    with open("/usr/local/PyDB/db/{0}/{1}/class".format(self.flag, strip[2]), "r") as f:
+                    with open("{0}/db/{1}/{2}/class".format(rootpath, self.flag, strip[2]), "r") as f:
                         next(f)
                         columnd = f.readlines()
                         columndata = []
@@ -113,7 +114,7 @@ class Request:
                             columndata.append(line.split(':')[0])
                 else:
                     columndata = strip[1].strip('{').strip('}').split(',')
-                datapath = "/usr/local/PyDB/db/{0}/{1}/data".format(self.flag, strip[2])
+                datapath = "{0}/db/{1}/{2}/data".format(rootpath, self.flag, strip[2])
                 with open(datapath, "r") as f:
                     next(f)
                     data = f.readlines()
