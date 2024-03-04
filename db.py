@@ -1,5 +1,6 @@
 import os
 import shutil
+import security
 
 #this variable defines the root directory where the db would be located. 
 #Edit this if you want it to be placed elsewhere.
@@ -16,7 +17,7 @@ class Data:
             f.write("{0}:{1}:{2}\n".format(self.typ, self.cls, self.value))
 class User:
     def __init__(self, username, pw):
-        self.password = pw
+        self.password = security.hash_pw(pw)
         self.username = username
 
 class Admin:
@@ -50,7 +51,7 @@ class Auth:
                 okay = True
                 break
         if okay:
-            if str(pw) == origin:
+            if security.check_pw(pw, origin):
                 return 0
             else:
                 print("Failed to authenticate")

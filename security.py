@@ -1,0 +1,7 @@
+import hashlib
+
+def hash_pw(pw):
+    hashed = hashlib.sha512(pw.encode()).hexdigest()
+    return hashed
+def check_pw(pw, hashed):
+    return hashed == hash_pw(pw)
