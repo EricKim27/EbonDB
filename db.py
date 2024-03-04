@@ -108,10 +108,6 @@ class Class:
         self.type = type
         self.dbname = dbname
         self.tablename = tablename
-    def mkclass(self):
-        classpath = "{0}/db/{1}/{2}/class".format(rootpath, self.dbname, self.tablename)
-        with open(classpath, "a") as f:
-            f.write("{0}:{1}\n".format(self.name, self.type))
     def writeclass(self):
         classpath = "{0}/db/{1}/{2}/class".format(rootpath, self.dbname, self.tablename)
         with open(classpath, "a") as f:
