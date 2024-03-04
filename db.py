@@ -1,6 +1,7 @@
 import os
 import shutil
 import security
+import requests
 
 #this variable defines the root directory where the db would be located. 
 #Edit this if you want it to be placed elsewhere.
@@ -125,5 +126,18 @@ def checkclass(dbname, tablename, classname):
                 return line.split(":")[1].strip('\n')
         print("Class not found")
         return "error"
-
+class Server:
+    def get_selfip(self):
+        response = requests.get('https://httpbin.org/ip')
+        if response.status_code == 200:
+            data = response.json()
+            return data['origin']
+        else:
+            return None
+    def __init__(self):
+        self.userlist = []
+        self.ipaddr = self.get_selfip()
+    def register_login(self, username, ip):
+        userdata = [username, ip]
+        self.userlist.append(userdata)
         
