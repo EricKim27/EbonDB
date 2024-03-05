@@ -136,4 +136,7 @@ class Server:
     def register_login(self, username, ip):
         userdata = [username, ip]
         self.userlist.append(userdata)
-        
+        print(f"{username} logged in from {ip}.")
+    def logout(self, username, ip):
+        self.userlist.remove([username, ip])
+        print(f"{username} logged out")
