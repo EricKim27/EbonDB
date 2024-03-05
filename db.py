@@ -7,6 +7,9 @@ import requests
 #Edit this if you want it to be placed elsewhere.
 rootpath="/usr/local/PyDB"
 
+# - Data class
+#Data class defines the data structure and writes it to the db file. 
+#The reading process is defined at requests.py.
 class Data:
     def __init__(self, typ, cls, value):
         self.typ = typ
@@ -16,11 +19,15 @@ class Data:
         datafile = "{0}/db/{1}/{2}/data".format(rootpath, dbname, tablename)
         with open(datafile, "a") as f:
             f.write("{0}:{1}:{2}\n".format(self.typ, self.cls, self.value))
+# - User class
+#This is a class that gets the username and password. The password gets hashed.
+#The function to write the User's data is defined at the Admin class.
 class User:
     def __init__(self, username, pw):
         self.password = security.hash_pw(pw)
         self.username = username
-
+# - Admin class
+# This class stores all the functions that are related to administrating the database.
 class Admin:
     def getusrdata():
         f = open("{0}/admin/User.data".format(rootpath), "r")
@@ -42,6 +49,9 @@ class Admin:
                 change.append(line)
         with open("{0}/admin/User.data".format(rootpath), "w") as f:
             f.writelines(change)
+# - Auth class
+# This class is for authenticating user data provided by the client.
+# More functions will be added in the future.
 class Auth:
     def checkpw(user, pw):
         okay = False
