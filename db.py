@@ -1,7 +1,10 @@
 import os
 import shutil
 import security
+import request
 import requests
+import socket
+import pickle
 
 #this variable defines the root directory where the db would be located. 
 #Edit this if you want it to be placed elsewhere.
@@ -150,3 +153,23 @@ class Server:
     def logout(self, username, ip):
         self.userlist.remove([username, ip])
         print(f"{username} logged out")
+    def runserver(self):
+        server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        server.bind(('', 50075))
+        server.listen(5)
+        print("Server waiting for request")
+        while True:
+            c, address = server.accept()
+            authinfo = c.recv(1024)
+            username = authinfo.split(',')[0]
+            pw = authinfo.split(',')[1]
+            ret = Auth.checkpw(username, pw)
+            if ret > 0:
+                c.send("Authentication Failure")
+                c.close()
+            else:
+                self.register_login(username, address)
+                while True:
+                    request = c.recv(1024)
+                    request = pickle.loads(request)
+                    #Not completed yet
