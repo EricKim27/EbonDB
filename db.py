@@ -170,6 +170,15 @@ class Server:
             else:
                 self.register_login(username, address)
                 while True:
-                    request = c.recv(1024)
-                    request = pickle.loads(request)
-                    #Not completed yet
+                    ans = c.recv(1024)
+                    ans = pickle.loads(ans)
+                    if ans[1] != "exit":
+                        req = request.Request(ans[1], ans[0], ' ')
+                        ret, flag, magic = req.commandinterpret()
+                        result = [ret, flag, magic]
+                        result = pickle.dumps(result)
+                        c.send(result)
+                        print(f"completed command: {ans[1]} requested by {ans[0]}")
+                    else:
+                        self.logout(username, address)
+                        c.close()
