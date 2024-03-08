@@ -156,29 +156,41 @@ class Server:
     def runserver(self):
         server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         server.bind(('', 50075))
-        server.listen(5)
+        server.listen(10)
         print("Server waiting for request")
         while True:
-            c, address = server.accept()
-            authinfo = c.recv(1024)
-            username = authinfo.split(',')[0]
-            pw = authinfo.split(',')[1]
-            ret = Auth.checkpw(username, pw)
-            if ret > 0:
-                c.send("Authentication Failure")
-                c.close()
-            else:
-                self.register_login(username, address)
-                while True:
-                    ans = c.recv(1024)
-                    ans = pickle.loads(ans)
-                    if ans[1] != "exit":
-                        req = request.Request(ans[1], ans[0], ' ')
-                        ret, flag, magic = req.commandinterpret()
-                        result = [ret, flag, magic]
-                        result = pickle.dumps(result)
-                        c.send(result)
-                        print(f"completed command: {ans[1]} requested by {ans[0]}")
-                    else:
-                        self.logout(username, address)
-                        c.close()
+            try:
+                c, address = server.accept()
+                authinfo = c.recv(1024).decode('utf-8')
+                auth_split = authinfo.split(',')
+                if len(auth_split) != 2:
+                    c.send("Invalid authentication information format.")
+                username = auth_split[0]
+                pw = auth_split[1]
+                ret = Auth.checkpw(username, pw)
+                if ret > 0:
+                    c.send("Authentication Failure")
+                    c.close()
+                else:
+                    self.register_login(username, address)
+                    while True:
+                        ans = c.recv(1024)
+                        ans = pickle.loads(ans)
+                        if ans[1] != "exit":
+                            print(f"request by {username}: {ans[1]}")
+                            req = request.Request(ans[1], ans[0], ' ')
+                            ret, flag, magic = req.commandinterpret()
+                            result = [ret, flag, magic]
+                            result = pickle.dumps(result)
+                            c.send(result)
+                            print(f"completed command: {ans[1]} requested by {ans[0]}")
+                        else:
+                            self.logout(username, address)
+                            c.close()
+            except (socket.error, EOFError, pickle.UnpicklingError):
+                print("{} disconnected unexpectedly".format(username))
+                if username in locals() and address in locals():
+                    self.logout(username, address)
+                if 'c' in locals():
+                    c.close()
+                continue
