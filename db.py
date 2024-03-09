@@ -172,19 +172,21 @@ class Server:
                     c.send("Authentication Failure")
                     c.close()
                 else:
+                    c.sendall("Authenticated")
                     self.register_login(username, address)
                     while True:
                         ans = c.recv(1024)
                         ans = pickle.loads(ans)
                         if ans[1] != "exit":
                             print(f"request by {username}: {ans[1]}")
-                            req = request.Request(ans[1], ans[0], ' ')
+                            req = request.Request(ans[1], ans[0], ans[2])
                             ret, flag, magic = req.commandinterpret()
                             result = [ret, flag, magic]
                             result = pickle.dumps(result)
                             c.send(result)
                             print(f"completed command: {ans[1]} requested by {ans[0]}")
                         else:
+                            c.sendall(pickle.dumps(["exit", username]))
                             self.logout(username, address)
                             c.close()
             except (socket.error, EOFError, pickle.UnpicklingError):
