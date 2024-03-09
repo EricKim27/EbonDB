@@ -1,5 +1,5 @@
 # EbonDB - Pure Python DBMS
-<img src="images/logo.png" height="150">
+<img src="images/logo.png" width="350">
 
  EbonDB is a DBMS made using python.
 
