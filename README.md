@@ -1,4 +1,4 @@
-## EbonDB - a DBMS made using python
+# EbonDB - Pure Python DBMS
 <img src="images/logo.png" height="150">
 
  EbonDB is a DBMS made using python.
@@ -19,10 +19,10 @@ I'm planning on making this work like a server. Currently, in order to use the p
 ```
 python sh.py
 ```
-## Dependencies
+# Dependencies
  - getpass4
  - tabulate
-## How to use
+# How to use
 (most of these are yet to be implemented)
  - commands
     * show (things)
