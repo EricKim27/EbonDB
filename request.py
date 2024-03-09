@@ -103,21 +103,25 @@ class Request:
                 table.mktable()
                 result = 0
         elif strip[0] == "insert":
-            if self.flag == ' ':
-                print("database not selected.")
-                result = 1
+            if len(strip) == 4:
+                if self.flag == ' ':
+                    print("database not selected.")
+                    result = 1
+                else:
+                    columninfo = strip[2].strip('{').strip('}').split(',')
+                    datainfo = strip[3].strip('{').strip('}').split(',')
+                    for i in range(len(columninfo)):
+                        type = db.checkclass(self.flag, strip[1], columninfo[i])
+                        if type == "error":
+                            print('column {} was not found'.format(columninfo[i]))
+                            result = 1
+                        else:
+                            data_for_write = db.Data(type, columninfo[i], datainfo[i])
+                            data_for_write.writedata(self.flag, strip[1])
+                            result = 0
             else:
-                columninfo = strip[2].strip('{').strip('}').split(',')
-                datainfo = strip[3].strip('{').strip('}').split(',')
-                for i in range(len(columninfo)):
-                    type = db.checkclass(self.flag, strip[1], columninfo[i])
-                    if type == "error":
-                        print('column {} was not found'.format(columninfo[i]))
-                        result = 1
-                    else:
-                        data_for_write = db.Data(type, columninfo[i], datainfo[i])
-                        data_for_write.writedata(self.flag, strip[1])
-                        result = 0
+                print("Syntax error")
+                result = 2
         #the get function is used for getting data of columns in the table.
         elif strip[0] == "get":
             if self.flag == ' ':
