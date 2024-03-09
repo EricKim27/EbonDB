@@ -1,4 +1,6 @@
 ## EbonDB - a DBMS made using python
+<img src="images/logo.png" height="150">
+
  EbonDB is a DBMS made using python.
 
 Now, since this is just some BS I made to learn more about OOP, please don't expect it to work like MySQL, MariaDB, MongoDB, etc. I really have no idea about databases. I'm just making it based on my understandings of DB after fiddling around with MariaDB. Heck, I don't even know all the sql statements.
