@@ -15,32 +15,39 @@ class Request:
         strip = self.stripcmd()
         result = 200
         if strip[0] == "show":
-            primelist = []
-            if strip[1] == "databases":
-                with open("{0}/db/dbinfo".format(rootpath), "r") as f:
-                    data = f.readlines()
-                    for line in data:
-                        primelist.append([line.strip("\n")])
-                        header = ['Databases']
-                table = tabulate(primelist, headers=header, tablefmt="fancy_grid")
-                print(table)
-                result = 0
-            elif strip[1] == "tables":
-                if self.flag == ' ':
-                    print("database not selected")
-                    result = 1
-                else:
-                    primelist = []
-                    header = ['Tables']
-                    table_info = "{0}/db/{1}/tableinfo".format(rootpath, self.flag)
-                    with open(table_info, "r") as f:
-                        next(f)
+            if len(strip) != 1:
+                primelist = []
+                if strip[1] == "databases":
+                    with open("{0}/db/dbinfo".format(rootpath), "r") as f:
                         data = f.readlines()
                         for line in data:
-                            primelist.append([line.strip('\n')])
+                            primelist.append([line.strip("\n")])
+                            header = ['Databases']
                     table = tabulate(primelist, headers=header, tablefmt="fancy_grid")
                     print(table)
                     result = 0
+                elif strip[1] == "tables":
+                    if self.flag == ' ':
+                        print("database not selected")
+                        result = 1
+                    else:
+                        primelist = []
+                        header = ['Tables']
+                        table_info = "{0}/db/{1}/tableinfo".format(rootpath, self.flag)
+                        with open(table_info, "r") as f:
+                            next(f)
+                            data = f.readlines()
+                            for line in data:
+                                primelist.append([line.strip('\n')])
+                        table = tabulate(primelist, headers=header, tablefmt="fancy_grid")
+                        print(table)
+                        result = 0
+                else:
+                    print("syntax error")
+                    result = 2
+            else:
+                print("syntax error")
+                result = 1
         elif strip[0] == "mkdb":
             database = db.DB(strip[1])
             database.mkdb()
