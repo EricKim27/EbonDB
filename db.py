@@ -8,7 +8,7 @@ import pickle
 
 #this variable defines the root directory where the db would be located. 
 #Edit this if you want it to be placed elsewhere.
-rootpath="/usr/local/PyDB"
+rootpath="/usr/local/EbonDB"
 
 # - Data class
 #Data class defines the data structure and writes it to the db file. 

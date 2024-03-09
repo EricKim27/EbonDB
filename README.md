@@ -1,5 +1,5 @@
-## PyDB - a DBMS made using python
- PyDB is a DBMS made using python.
+## EbonDB - a DBMS made using python
+ EbonDB is a DBMS made using python.
 
 Now, since this is just some BS I made to learn more about OOP, please don't expect it to work like MySQL, MariaDB, MongoDB, etc. I really have no idea about databases. I'm just making it based on my understandings of DB after fiddling around with MariaDB. Heck, I don't even know all the sql statements.
 
@@ -11,7 +11,7 @@ It currently can do:
  - inserting data to a column
  - printing data in the form of a table
 
-The contents of this repository should go under /usr/local/PyDB by default. But you can edit the rootpath variable defined at db.py.
+The contents of this repository should go under /usr/local/EbonDB by default. But you can edit the rootpath variable defined at db.py.
 
 I'm planning on making this work like a server. Currently, in order to use the prompt, run:
 ```

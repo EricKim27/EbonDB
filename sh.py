@@ -20,7 +20,7 @@ while True:
                     print("mkuser successful.")
                     exit()
         else:
-            print("PyDB test Prompt")
+            print("EbonDB test Prompt")
             print(" ")
             print("This software comes with ABSOLUTELY NO WARRANTY, \nto the extent permitted by applicable law.")
             print(" ")
