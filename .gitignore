@@ -5,3 +5,9 @@ db/test2
 db/test3
 db/dbinfo
 __pycache__
+.idea/misc.xml
+.idea/EbonDB.iml
+.idea/inspectionProfiles
+.idea/modules.xml
+.idea/vcs.xml
+.idea
