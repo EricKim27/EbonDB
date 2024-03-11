@@ -44,7 +44,7 @@ class Client:
 import sys
 
 port = 50075
-serverinfo = sys.argv[0].split('@')
+serverinfo = sys.argv[1].split('@')
 password = getpass("Password: ")
 ret = Client.runclient(serverinfo[1], port, serverinfo[0], password)
 if ret > 0:
