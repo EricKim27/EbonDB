@@ -59,7 +59,7 @@ class Auth:
         okay = False
         usrdata = Admin.getusrdata()
         for line in usrdata:
-            if line.split(":")[0] == user:
+            if line.split(":")[0] == str(user):
                 origin = line.split(":")[1].strip("\n")
                 okay = True
                 break
@@ -135,7 +135,7 @@ def checkclass(dbname, tablename, classname):
         print("Class not found")
         return "error"
 class Server:
-    def get_selfip(self):
+    def get_selfip():
         response = requests.get('https://httpbin.org/ip')
         if response.status_code == 200:
             data = response.json()
@@ -164,15 +164,15 @@ class Server:
                 authinfo = c.recv(1024).decode('utf-8')
                 auth_split = authinfo.split(',')
                 if len(auth_split) != 2:
-                    c.send("Invalid authentication information format.")
+                    c.send("Invalid authentication information format.".encode('utf-8'))
                 username = auth_split[0]
                 pw = auth_split[1]
                 ret = Auth.checkpw(username, pw)
                 if ret > 0:
-                    c.send("Authentication Failure")
+                    c.send("Authentication Failure".encode('utf-8'))
                     c.close()
                 else:
-                    c.sendall("Authenticated")
+                    c.sendall("Authenticated".encode('utf-8'))
                     self.register_login(username, address)
                     while True:
                         ans = c.recv(1024)

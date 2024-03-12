@@ -10,8 +10,8 @@ class Client:
         self.conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     def runclient(self, serverip, port, username, password):
         pw_to_send = security.hash_pw(password)
-        self.conn.connect(serverip, port)
-        self.conn.sendall(f"{username},{pw_to_send}")
+        self.conn.connect((serverip, port))
+        self.conn.sendall(f"{username},{pw_to_send}".encode('utf-8'))
         ifauth = self.conn.recv(1024)
         if ifauth == "Authenticated":
             flag = ' '
@@ -49,7 +49,8 @@ import sys
 port = 50075
 serverinfo = sys.argv[1].split('@')
 password = getpass("Password: ")
-ret = Client.runclient(serverinfo[1], port, serverinfo[0], password)
+clint = Client()
+ret = clint.runclient(serverinfo[1], port, serverinfo[0], password)
 if ret > 0:
     print("completed with errors")
 else:
