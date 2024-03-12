@@ -2,13 +2,16 @@ import db
 import socket
 import pickle
 from getpass4 import getpass
+import security
+
 class Client:
     def __init__(self):
         self.ipaddr = db.Server.get_selfip()
         self.conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     def runclient(self, serverip, port, username, password):
+        pw_to_send = security.hash_pw(password)
         self.conn.connect(serverip, port)
-        self.conn.sendall(f"{username},{password}")
+        self.conn.sendall(f"{username},{pw_to_send}")
         ifauth = self.conn.recv(1024)
         if ifauth == "Authenticated":
             flag = ' '

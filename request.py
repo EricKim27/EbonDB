@@ -3,7 +3,8 @@ from db import rootpath
 import os
 from tabulate import tabulate
 
-#this class is for getting requests and returning results.
+# this class is for getting requests and returning results.
+# in the future, the commandinterpret function will be divided into multiple functions, as it is getting way too big.
 class Request:
     def __init__(self, req, user, flags):
         self.request = req
@@ -118,7 +119,7 @@ class Request:
             else:
                 self.out.append("Syntax error")
                 result = 2
-        #the get function is used for getting data of columns in the table.
+        # the get function is used for getting data of columns in the table.
         elif strip[0] == "get":
             if self.flag == ' ':
                 self.out.append("database not selected.")
@@ -137,15 +138,15 @@ class Request:
                 with open(datapath, "r") as f:
                     next(f)
                     data = f.readlines()
-                    #primelist is for storing lists that contain each column's data.
+                    # primelist is for storing lists that contain each column's data.
                     primelist = []
-                    #below is for making lists according to the number of columns requested.
+                    # below is for making lists according to the number of columns requested.
                     for i in range(len(columndata)):
                         primelist.append([])
-                    #the bottom function reads line by line, and checks which column does the data belong to.
-                    #process:
-                    #read line -> check if the data belongs on column (in order) -> finds it ->
-                    #goto next line -> repeat until end
+                    # the bottom function reads line by line, and checks which column does the data belong to.
+                    # process:
+                    # read line -> check if the data belongs on column (in order) -> finds it ->
+                    # goto next line -> repeat until end
                     for line in data:
                         value = line.split(':')
                         for i in range(len(columndata)):
