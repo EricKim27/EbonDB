@@ -184,6 +184,7 @@ class Server:
                             result = [ret, flag, magic]
                             result = pickle.dumps(result)
                             c.sendall(result)
+                            c.sendall("EOR".encode('utf-8'))
                             print(f"completed command: {ans[1]} requested by {ans[0]}")
                         else:
                             c.sendall(pickle.dumps(["exit", username]))

@@ -31,7 +31,7 @@ class Client:
                 data = b""
                 while True:
                     result = self.conn.recv(1024)
-                    if not result:
+                    if result == "EOR".encode('utf-8'):
                         break
                     data += result
                 result_list = pickle.loads(data)
