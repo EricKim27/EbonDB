@@ -135,7 +135,7 @@ def checkclass(dbname, tablename, classname):
         print("Class not found")
         return "error"
 class Server:
-    def get_selfip():
+    def get_selfip(self):
         response = requests.get('https://httpbin.org/ip')
         if response.status_code == 200:
             data = response.json()

@@ -5,8 +5,16 @@ from getpass4 import getpass
 import security
 
 class Client:
+    def get_selfip(self):
+        import requests
+        response = requests.get('https://httpbin.org/ip')
+        if response.status_code == 200:
+            data = response.json()
+            return data['origin']
+        else:
+            return None
     def __init__(self):
-        self.ipaddr = db.Server.get_selfip()
+        self.ipaddr = self.get_selfip()
         self.conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     def runclient(self, serverip, port, username, password):
         pw_to_send = security.hash_pw(password)
