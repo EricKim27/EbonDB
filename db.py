@@ -183,7 +183,7 @@ class Server:
                             ret, flag, magic = req.commandinterpret()
                             result = [ret, flag, magic]
                             result = pickle.dumps(result)
-                            c.send(result)
+                            c.sendall(result)
                             print(f"completed command: {ans[1]} requested by {ans[0]}")
                         else:
                             c.sendall(pickle.dumps(["exit", username]))

@@ -20,7 +20,7 @@ class Client:
         pw_to_send = security.hash_pw(password)
         self.conn.connect((serverip, port))
         self.conn.sendall(f"{username},{pw_to_send}".encode('utf-8'))
-        ifauth = self.conn.recv(1024)
+        ifauth = self.conn.recv(1024).decode('utf-8')
         if ifauth == "Authenticated":
             flag = ' '
             resnum = 0
@@ -28,8 +28,13 @@ class Client:
                 request = input("(" + username + ")[" + str(resnum) + "]>")
                 req_to_send = pickle.dumps([username, request, flag])
                 self.conn.send(req_to_send)
-                result = self.conn.recv(1024)
-                result_list = pickle.loads(result)
+                data = b""
+                while True:
+                    result = self.conn.recv(1024)
+                    if not result:
+                        break
+                    data += result
+                result_list = pickle.loads(data)
                 if len(result_list) == 3:
                     print(result_list[0])
                     flag = result_list[1]
