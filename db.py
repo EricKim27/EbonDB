@@ -1,7 +1,6 @@
 import os
 import shutil
 import security
-import request
 import requests
 import socket
 import pickle
@@ -154,6 +153,7 @@ class Server:
         self.userlist.remove([username, ip])
         print(f"{username} logged out")
     def runserver(self):
+        import request
         server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         server.bind(('', 50075))
         server.listen(10)
