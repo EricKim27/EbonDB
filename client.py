@@ -24,6 +24,8 @@ class Client:
         if ifauth == "Authenticated":
             flag = ' '
             resnum = 0
+            print("Welcome to EbonDB! (git-mainline)")
+            print("Refer to the documentation for more information.")
             while True:
                 request = input("(" + username + ")[" + str(resnum) + "]>")
                 if request == "exit":
@@ -47,6 +49,10 @@ class Client:
                     resnum = result_list[2]
                     for item in res:
                         print(item)
+                    if result_list[2] > 0:
+                        print("command completed with errors")
+                    else:
+                        print("command completed without errors")
                 elif len(result_list) == 2:
                     if result_list[0] == "exit":
                         print("successfully disconnected from server.")
