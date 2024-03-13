@@ -8,7 +8,7 @@ This is the main page of the EbonDB documentation page. click on the link below 
 </h4>
 
 <h3>
-<a href="/ABOUT">About</a>
+<a href="/EbonDB/ABOUT">About</a>
 |
-<a href="/HOWTO">How to use</a>
+<a href="/EbonDB/HOWTO">How to use</a>
 </h3>
