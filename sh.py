@@ -19,6 +19,8 @@ while True:
                     db.Admin.mkuser(user)
                     print("mkuser successful.")
                     exit()
+        # the bottom part of this code is temporarily not working. Run this on a server using server.py and connect to it using client.py
+        # will be looking for ways to fix this.
         else:
             print("EbonDB test Prompt")
             print(" ")
