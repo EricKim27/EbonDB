@@ -1,7 +1,6 @@
 import os
 import shutil
 import security
-import request
 import requests
 import socket
 import pickle
@@ -60,7 +59,7 @@ class Auth:
         okay = False
         usrdata = Admin.getusrdata()
         for line in usrdata:
-            if line.split(":")[0] == user:
+            if line.split(":")[0] == str(user):
                 origin = line.split(":")[1].strip("\n")
                 okay = True
                 break
@@ -154,6 +153,7 @@ class Server:
         self.userlist.remove([username, ip])
         print(f"{username} logged out")
     def runserver(self):
+        import request
         server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         server.bind(('', 50075))
         server.listen(10)
@@ -164,15 +164,15 @@ class Server:
                 authinfo = c.recv(1024).decode('utf-8')
                 auth_split = authinfo.split(',')
                 if len(auth_split) != 2:
-                    c.send("Invalid authentication information format.")
+                    c.send("Invalid authentication information format.".encode('utf-8'))
                 username = auth_split[0]
                 pw = auth_split[1]
                 ret = Auth.checkpw(username, pw)
                 if ret > 0:
-                    c.send("Authentication Failure")
+                    c.send("Authentication Failure".encode('utf-8'))
                     c.close()
                 else:
-                    c.sendall("Authenticated")
+                    c.sendall("Authenticated".encode('utf-8'))
                     self.register_login(username, address)
                     while True:
                         ans = c.recv(1024)
@@ -182,17 +182,25 @@ class Server:
                             req = request.Request(ans[1], ans[0], ans[2])
                             ret, flag, magic = req.commandinterpret()
                             result = [ret, flag, magic]
+                            print(f"result to send:{result}")
                             result = pickle.dumps(result)
-                            c.send(result)
+                            c.sendall(result)
+                            c.sendall("☭".encode('utf-8'))
                             print(f"completed command: {ans[1]} requested by {ans[0]}")
                         else:
                             c.sendall(pickle.dumps(["exit", username]))
                             self.logout(username, address)
                             c.close()
             except (socket.error, EOFError, pickle.UnpicklingError):
-                print("{} disconnected unexpectedly".format(username))
+                print("{} disconnected".format(username))
                 if username in locals() and address in locals():
                     self.logout(username, address)
                 if 'c' in locals():
                     c.close()
                 continue
+            except KeyboardInterrupt:
+                print("Stopped server.")
+                break
+            else:
+                print(Exception)
+                break

@@ -11,7 +11,6 @@ It currently can do:
  - inserting data to a column
  - printing data in the form of a table
 
-I'm planning on making this work like a server.
 # Dependencies
  - getpass4
  - tabulate
@@ -22,10 +21,15 @@ first, you need to set the user. so you have to do:
 ```
 python sh.py mkuser {username} {password}
 ```
-and then run:
+and then on the server side, run:
 ```
-python sh.py
+python server.py
 ```
+and you can connect to the server from the client side, run:
+```
+python client.py <username>@<server address>
+```
+you need to allow the portnumber: 50075. You can also use other ports.
  - commands
     * show (things)
     * mkdb (dbname) - makes a db
