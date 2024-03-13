@@ -1,4 +1,3 @@
-import db
 import socket
 import pickle
 from getpass4 import getpass
@@ -53,13 +52,14 @@ class Client:
                         print("command completed with errors")
                     else:
                         print("command completed without errors")
-                elif len(result_list) == 2:
-                    if result_list[0] == "exit":
-                        print("successfully disconnected from server.")
-                        break
-                    else:
-                        print("Server sent a wrong result. Contact Developer at github.")
-                        continue
+                # bottom code is temporarily disabled.
+                #elif len(result_list) == 2:
+                #    if result_list[0] == "exit":
+                #        print("successfully disconnected from server.")
+                #        break
+                #    else:
+                #        print("Server sent a wrong result. Contact Developer at github.")
+                #        continue
                 else:
                     if not result:
                         print("server disconnected unexpectedly")
