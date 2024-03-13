@@ -182,18 +182,25 @@ class Server:
                             req = request.Request(ans[1], ans[0], ans[2])
                             ret, flag, magic = req.commandinterpret()
                             result = [ret, flag, magic]
+                            print(f"result to send:{result}")
                             result = pickle.dumps(result)
                             c.sendall(result)
-                            c.sendall("EOR".encode('utf-8'))
+                            c.sendall("☭".encode('utf-8'))
                             print(f"completed command: {ans[1]} requested by {ans[0]}")
                         else:
                             c.sendall(pickle.dumps(["exit", username]))
                             self.logout(username, address)
                             c.close()
             except (socket.error, EOFError, pickle.UnpicklingError):
-                print("{} disconnected unexpectedly".format(username))
+                print("{} disconnected".format(username))
                 if username in locals() and address in locals():
                     self.logout(username, address)
                 if 'c' in locals():
                     c.close()
                 continue
+            except KeyboardInterrupt:
+                print("Stopped server.")
+                break
+            else:
+                print(Exception)
+                break
