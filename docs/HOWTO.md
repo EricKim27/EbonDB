@@ -16,7 +16,8 @@
     ```
  4. Run the client side code to connect to the server. This code can be placed anywhere.
     ```
-    python3 client.py <username>@<serveraddress>
+    chmod +x client
+    ./client <username>@<serveraddress>
     ```
 ## Using it
 
