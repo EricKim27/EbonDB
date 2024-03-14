@@ -124,6 +124,9 @@ class Request:
             if self.flag == ' ':
                 self.out.append("database not selected.")
                 result = 1
+            elif not os.path.exists("{0}/db/{1}/{2}".format(rootpath, self.flag, strip[2])):
+                self.out.append("table not found.")
+                result = 1
             else:
                 if strip[1] == "*":
                     with open("{0}/db/{1}/{2}/class".format(rootpath, self.flag, strip[2]), "r") as f:
