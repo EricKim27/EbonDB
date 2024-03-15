@@ -114,6 +114,9 @@ class Table:
                 if line.split('\n') != self.name:
                     f.write(line)
         shutil.rmtree('{0}/db/{1}/{2}'.format(rootpath, self.dbname, self.name))
+# Class class
+# This class defines the structure and the function of the column. Although it says class, it functions like a column.
+# Thinking I should change the name to column.
 class Class:
     def __init__(self, name, dbname, tablename, type):
         self.name = name
@@ -178,15 +181,19 @@ class Server:
                         ans = c.recv(1024)
                         ans = pickle.loads(ans)
                         if ans[1] != "exit":
-                            print(f"request by {username}: {ans[1]}")
-                            req = request.Request(ans[1], ans[0], ans[2])
-                            ret, flag, magic = req.commandinterpret()
-                            result = [ret, flag, magic]
-                            print(f"result to send:{result}")
-                            result = pickle.dumps(result)
-                            c.sendall(result)
-                            c.sendall("☭".encode('utf-8'))
-                            print(f"completed command: {ans[1]} requested by {ans[0]}")
+                            if ans[1] == "who":
+                                c.sendall(pickle.dumps([self.userlist, ans[2], 0]))
+                                c.sendall("☭".encode('utf-8'))
+                            else:
+                                print(f"request by {username}: {ans[1]}")
+                                req = request.Request(ans[1], ans[0], ans[2])
+                                ret, flag, magic = req.commandinterpret()
+                                result = [ret, flag, magic]
+                                print(f"result to send:{result}")
+                                result = pickle.dumps(result)
+                                c.sendall(result)
+                                c.sendall("☭".encode('utf-8'))
+                                print(f"completed command: {ans[1]} requested by {ans[0]}")
                         else:
                             c.sendall(pickle.dumps(["exit", username]))
                             self.logout(username, address)
