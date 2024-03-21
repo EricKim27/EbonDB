@@ -1,9 +1,5 @@
-admin/User.data
-admin/User.data.old
-db/test
-db/test2
-db/test3
-db/dbinfo
+admin/*
+db/*
 __pycache__
 .idea/misc.xml
 .idea/EbonDB.iml
