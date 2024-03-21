@@ -8,7 +8,7 @@
     you might need sudo.
  2. create a user with the bottom command.
     ```
-    python3 sh.py mkuser <username> <password>
+    python3 setup.py
     ```
  3. Run the command to start the server.
     ```
