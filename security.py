@@ -9,14 +9,23 @@ def hash_pw(pw):
     return hashed
 def check_pw(pw, hashed):
     return hashed == pw
-def get_session_key(hashed_pw):
-    key = secrets.token_hex(16)
-    aes_key = hashed_pw[:32].encode()
-    cipher = AES.new(aes_key, AES.MODE_ECB)
-    encrypted_key = cipher.encrypt(pad(key.encode(), AES.block_size))
-    return encrypted_key
-def decrypt_key(encrypted_key, hashed_pw):
-    key_for_decryption = hashed_pw[:32]
-    cipher = AES.new(key_for_decryption, AES.MODE_ECB)
-    decrypted_key = unpad(cipher.decrypt(encrypted_key), AES.block_size)
-    return decrypted_key.decode
+class encryption:
+    def __init__(self):
+        self.session_key = self.get_session_key()
+    def get_session_key(self):
+        return secrets.token_hex(16)
+    def encrypt_session_key(self, hashed_pw):
+        aes_key = hashed_pw[:32].encode()
+        cipher = AES.new(aes_key, AES.MODE_CBC)
+        encrypted_key = cipher.encrypt(pad(self.session_key.encode(), AES.block_size))
+        return encrypted_key
+    def decrypt_key(self, encrypted_key, hashed_pw):
+        key_for_decryption = hashed_pw[:32]
+        cipher = AES.new(key_for_decryption, AES.MODE_CBC)
+        decrypted_key = unpad(cipher.decrypt(encrypted_key), AES.block_size)
+        return decrypted_key.decode
+    def encrypt_data(self, data):
+        aes_key = self.session_key[:32].encode()
+        cipher = AES.new(aes_key, AES.MODE_CBC)
+        encrypted_data = cipher.encrypt(pad(data, AES.block_size))
+        return encrypted_data
