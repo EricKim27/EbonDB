@@ -141,7 +141,7 @@ class Request:
                 with open(datapath, "r") as f:
                     next(f)
                     data = f.readlines()
-                    # primelist is for storing lists that contain each column's data.
+                    # primelist is for storing lists that contain each column's data. It's in a matrix structure.
                     primelist = []
                     # below is for making lists according to the number of columns requested.
                     for i in range(len(columndata)):

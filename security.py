@@ -9,6 +9,11 @@ def hash_pw(pw):
     return hashed
 def check_pw(pw, hashed):
     return hashed == pw
+# encryption class
+# This class is for defining the encryption layer.
+# It uses AES for encrypting. It encrypts the session key generated for each connection, and sends it to the client.
+# Then the client and server use the session key to encrypt their data. 
+# It is done like this so that the session key that is used for encrypting data is safely transmitted.
 class encryption:
     def __init__(self):
         self.session_key = self.get_session_key()
