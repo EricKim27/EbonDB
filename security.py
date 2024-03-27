@@ -34,3 +34,7 @@ class encryption:
         cipher = AES.new(aes_key, AES.MODE_CBC)
         encrypted_data = cipher.encrypt(pad(data, AES.block_size))
         return encrypted_data
+    def decrypt_data(self, data):
+        aes_key = self.session_key[:32].encode()
+        cipher = AES.new(aes_key, AES.MODE_CBC)
+        return unpad(cipher.decrypt(data), AES.block_size)
